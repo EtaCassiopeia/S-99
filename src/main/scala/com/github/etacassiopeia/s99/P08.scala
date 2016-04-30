@@ -21,7 +21,7 @@ object P08 {
   def foldRightCompress[T](list: List[T]): List[T] = {
     list.foldRight(List[T]()) {
       case (e, List()) => List(e)
-      case (e, l) if (l.head != e) => e :: l
+      case (e, l) if l.head != e => e :: l
       case (e, l) => l
     }
   }
