@@ -11,13 +11,13 @@ package com.github.etacassiopeia.s99
 object P26 {
 
   def main(args: Array[String]) {
-    println(combinations(6, List('a, 'b, 'c, 'd, 'e, 'f)))
+    println(combinations(7, List('a, 'b, 'c, 'd, 'e, 'f)))
     println(combinations(3, List.range(1, 13)).length)
     println(combinations(7, List.range(1, 13)).length)
   }
 
   def combinations[T](n: Int, list: List[T]): List[List[T]] = {
-    if (n > list.length)
+    if (n < 0 || n > list.length)
       throw new NoSuchElementException
 
     (n, list) match {
