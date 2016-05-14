@@ -17,6 +17,9 @@ object P23 {
   }
 
   def randomSelect[T](n: Int, list: List[T]): List[T] = {
+    if (n > list.length)
+      throw new NoSuchElementException
+
     val indexes = Random.shuffle(list.indices.toList).take(n)
     for (i <- indexes) yield list(i)
   }
