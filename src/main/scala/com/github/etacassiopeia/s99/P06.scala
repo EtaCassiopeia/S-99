@@ -21,7 +21,7 @@ object P06 {
 
   def isPalindrome[T](list: List[T]): Boolean = list match {
     //case x +: l :+ y => {println(l); x == y && isPalindrome(l);} //two different operator mention that <l> is a list
-    case +:(x, :+(l, y)) => x == y && isPalindrome(l) //infix notation
+    case +:(x, :+(l, y)) => x == y && isPalindrome(l) //postfix notation
     case _ => true
   }
 }
