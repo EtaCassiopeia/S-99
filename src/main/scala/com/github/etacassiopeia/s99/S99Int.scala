@@ -52,6 +52,38 @@ class S99Int(val start: Int) {
     primeFactors.groupBy(x => x).map(x => (x._1, x._2.length))
   }
 
+  def goldbach: (Int, Int) = {
+    assert(start > 2, "Start number must be greater than two")
+    assert(start % 2 == 0, "Start number must be an even number")
+
+    import P39.listPrimesInRange
+
+    primes.takeWhile {
+      _ <= start / 2
+    } foreach {
+      x =>
+        val list = listPrimesInRange(start / 2, start)
+        list.foreach {
+          y =>
+            if (x + y == start) return (x, y)
+        }
+    }
+
+    throw new NoSuchElementException
+  }
+
+  def goldbach2: (Int, Int) = {
+    assert(start > 2, "Start number must be greater than two")
+    assert(start % 2 == 0, "Start number must be an even number")
+
+    primes.takeWhile {
+      _ < start
+    } find (p => (start - p).isPrime) match {
+      case Some(x) => (x, start - x)
+      case None => throw new NoSuchElementException
+    }
+  }
+
 }
 
 object S99Int {

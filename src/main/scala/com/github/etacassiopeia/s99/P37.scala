@@ -19,6 +19,6 @@ object P37 {
   def main(args: Array[String]) {
     import S99Int._
 
-    println(10.totient)
+    println(10.totientImproved)
   }
 }
