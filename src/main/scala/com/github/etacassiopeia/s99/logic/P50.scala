@@ -61,14 +61,13 @@ object P50 {
     println(tree.toCode)
   }
 
-  def huffmanTree[A](queue: mutable.PriorityQueue[Tree[A]], tree: Tree[A] = null): Tree[A] = {
+  def huffmanTree[A](queue: mutable.PriorityQueue[Tree[A]]): Tree[A] = {
     queue match {
       case first :: second :: tail if tail.nonEmpty =>
         val t = new InnerNode[A](first, second)
-        huffmanTree(tail += t, t)
+        huffmanTree(tail += t)
       case first :: second :: tail =>
         new InnerNode[A](first, second)
-      case _ => tree
     }
   }
 }
