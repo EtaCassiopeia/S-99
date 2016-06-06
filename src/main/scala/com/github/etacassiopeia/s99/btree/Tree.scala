@@ -17,7 +17,12 @@ abstract sealed class Tree[+T] {
 
   def isSymmetric: Boolean
 
-  def isMirrorOf[T](other: Tree[T]): Boolean
+  // Suppose that U<:T, Due to the fact that we define T in covariant position (Tree[+T]),
+  // we will have Tree[U] <: Tree[T] (End class : Nothing<:String).
+  // If we use isMirrorOf(other: Tree[T]) we will get an error like this : covariant type T occurs in contravariant position
+  // The solution is that, allow any superclass as well: isMirrorOf[S >: T](other: Tree[S]) as method parameter.
+  // Now if T changes to U, it's no big deal: a superclass of T is also a superclass of U
+  def isMirrorOf[S >: T](other: Tree[S]): Boolean
 }
 
 case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -29,7 +34,7 @@ case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
 
   override def isSymmetric: Boolean = left.isMirrorOf(right)
 
-  override def isMirrorOf[T](other: Tree[T]): Boolean = (this, other) match {
+  override def isMirrorOf[S >: T](other: Tree[S]): Boolean = (this, other) match {
     case (Node(v1, lNode1, rNode1), Node(v2, lNode2, rNode2)) => lNode1.isMirrorOf(rNode2) && rNode1.isMirrorOf(lNode2)
     case _ => false
   }
@@ -44,7 +49,7 @@ case object End extends Tree[Nothing] {
 
   override def isSymmetric: Boolean = true
 
-  override def isMirrorOf[T](other: Tree[T]): Boolean = other match {
+  override def isMirrorOf[S >: Nothing](other: Tree[S]): Boolean = other match {
     case End => true
     case _ => false
   }
