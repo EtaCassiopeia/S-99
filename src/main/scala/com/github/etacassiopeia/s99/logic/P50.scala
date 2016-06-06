@@ -67,7 +67,7 @@ object P50 {
         val t = new InnerNode[A](first, second)
         huffmanTree(tail += t, t)
       case first :: second :: tail =>
-        new InnerNode[A](first.asInstanceOf[Tree[A]], second.asInstanceOf[Tree[A]])
+        new InnerNode[A](first, second)
       case _ => tree
     }
   }
