@@ -23,6 +23,8 @@ abstract sealed class Tree[+T] {
   // The solution is that, allow any superclass as well: isMirrorOf[S >: T](other: Tree[S]) as method parameter.
   // Now if T changes to U, it's no big deal: a superclass of T is also a superclass of U
   def isMirrorOf[S >: T](other: Tree[S]): Boolean
+
+  //def addValue[U >: T <% Ordered[U]]: Tree[U]
 }
 
 case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
